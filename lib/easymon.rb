@@ -62,8 +62,16 @@ module Easymon
       end
     end
   end
-  
+
   def self.timing_to_ms(timing = 0)
     sprintf("%.3f", (timing * 1000))
+  end
+
+  def self.authorize_with=(block)
+    @authorize_with = block
+  end
+
+  def self.authorized?(request)
+    @authorize_with.nil? ? true : @authorize_with.call(request)
   end
 end
